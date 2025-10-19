@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
   
-    ScaffoldMessenger.of(context).showSnackBar(
+ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
           corretto ? 'LA COMBINAZIONE CORRETTA' : 'LA COMBINAZIONE È ERRATTA, RIPROVA ',
@@ -108,9 +108,23 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text('Ti ga strucca el boton tante volte:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(4, (index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () => _cicloColori(index),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: availableColori[ordineColore[index]],
+                      minimumSize: const Size(75, 75),
+                      shape: const CircleBorder(),
+                       padding: EdgeInsets.zero, 
+                    ),
+                    child: const SizedBox.shrink(),
+                  ),
+                );
+              }),
             ),
           ],
         ),
