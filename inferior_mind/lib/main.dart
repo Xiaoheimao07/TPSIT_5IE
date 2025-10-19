@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Color> availableColors = [
+  final List<Color> availableColore = [
     Colors.grey,//0
     Colors.red,//1
   
@@ -43,6 +43,13 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   List<int> ordineColore = [0, 0, 0, 0];
+
+  void _cicloColori(int index) {
+    setState(() {
+      ordineColore[index] =
+          (ordineColore[index] + 1) % availableColore.length;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
