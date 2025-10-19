@@ -54,19 +54,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _creatoreCodiceRisultato() {
-  final random = Random();
-  codiceRisultato = List.generate(4, (_) => 1 + random.nextInt(availableColori.length - 1));
-  print('Codice Risultato : $codiceRisultato');
-}
+    final random = Random();
+    codiceRisultato = List.generate(4, (_) => 1 + random.nextInt(availableColori.length - 1));
+    print('Codice Risultato : $codiceRisultato');
+  }
 
-void _controlloCorrettezza() {
-    bool corretto = true;
-    for (int i = 0; i < 4; i++) {
-      if (ordineColore[i] != codiceRisultato[i]) {
-        corretto = false;
-        break;
-      }
-    }
 
   void _cicloColori(int index) {
     setState(() {
@@ -75,6 +67,32 @@ void _controlloCorrettezza() {
     });
   }
 
+  void _controlloCorrettezza() {
+    bool corretto = true;
+    for (int i = 0; i < 4; i++) {
+      if (ordineColore[i] != codiceRisultato[i]) {
+        corretto = false;
+        break;
+      }
+    }
+
+  
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          corretto ? 'LA COMBINAZIONE CORRETTA' : 'LA COMBINAZIONE È ERRATTA, RIPROVA ',
+        ),
+        duration: const Duration(seconds: 3),
+      )
+    );
+
+    if (corretto) {
+      _creatoreCodiceRisultato();
+    }
+    setState(() {
+      ordineColore = [0, 0, 0, 0];
+    });
+  }
 
 
   @override
