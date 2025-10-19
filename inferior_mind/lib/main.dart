@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -30,24 +31,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Color> availableColore = [
+  final List<Color> availableColori = [
     Colors.grey,//0
     Colors.red,//1
-  
+
     Colors.orange,//2
     Colors.yellow, //3
     Colors.green,//4
-    Colors.cyan//5
+    Colors.cyan,//5
     Colors.blue,//6
     Colors.purple,//7
   ];
 
   List<int> ordineColore = [0, 0, 0, 0];
+  
+  late List<int> codiceRisultato;
+
+  @override
+  void initState() {
+    super.initState();
+    _creatoreCodiceRisultato();
+  }
+
+  void _creatoreCodiceRisultato() {
+  final random = Random();
+  codiceRisultato = List.generate(4, (_) => 1 + random.nextInt(availableColori.length - 1));
+  print('Codice Risultato : $codiceRisultato');
+}
 
   void _cicloColori(int index) {
     setState(() {
       ordineColore[index] =
-          (ordineColore[index] + 1) % availableColore.length;
+          (ordineColore[index] + 1) % availableColori.length;
     });
   }
 
