@@ -59,12 +59,23 @@ class _MyHomePageState extends State<MyHomePage> {
   print('Codice Risultato : $codiceRisultato');
 }
 
+void _controlloCorrettezza() {
+    bool corretto = true;
+    for (int i = 0; i < 4; i++) {
+      if (ordineColore[i] != codiceRisultato[i]) {
+        corretto = false;
+        break;
+      }
+    }
+
   void _cicloColori(int index) {
     setState(() {
       ordineColore[index] =
           (ordineColore[index] + 1) % availableColori.length;
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
