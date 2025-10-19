@@ -107,7 +107,7 @@ ScaffoldMessenger.of(context).showSnackBar(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Ti ga strucca el boton tante volte:'),
+            const Text('PREMI PER CAMBIARE COLORE'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(4, (index) {
@@ -117,9 +117,10 @@ ScaffoldMessenger.of(context).showSnackBar(
                     onPressed: () => _cicloColori(index),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: availableColori[ordineColore[index]],
-                      minimumSize: const Size(75, 75),
+                      minimumSize: const Size(70, 70),
                       shape: const CircleBorder(),
-                       padding: EdgeInsets.zero, 
+                        padding: EdgeInsets.zero, 
+                    
                     ),
                     child: const SizedBox.shrink(),
                   ),
@@ -130,8 +131,8 @@ ScaffoldMessenger.of(context).showSnackBar(
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _controlloCorrettezza,
+        tooltip: 'Controlla',
         child: const Icon(Icons.add),
       ),
     );
