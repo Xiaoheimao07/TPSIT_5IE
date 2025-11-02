@@ -1,17 +1,20 @@
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const Chrono());
-}
-
-class Chrono extends StatelessWidget {
-  const Chrono({super.key});
+class ChronoPage extends StatefulWidget {
+  const ChronoPage({super.key});
 
   @override
+  State<ChronoPage> createState() => _ChronoPageState();
+}
+
+class _ChronoPageState extends State<ChronoPage> {
+  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ChronoPage(),
-      debugShowCheckedModeBanner: false,
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          '00:00',
+          style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
+        ),
+      ),
     );
   }
 }
