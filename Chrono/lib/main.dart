@@ -31,6 +31,54 @@ class _ChronoPageState extends State<ChronoPage> {
   bool contatore = false;
   bool statoPausa = false;
 
+  void start() {
+    tickerSubscription?.cancel();
+    tickerSubscription =
+        Stream.periodic(const Duration(milliseconds: 100), (x) => x)
+            .listen((evento) {
+      if (evento % 10 == 0) {
+        setState(() {
+          secondi++;
+        });
+      }
+    });
+    setState(() {
+      contatore = true;
+      statoPausa = false;
+    });
+  }
+
+  void stop() {
+    tickerSubscription?.cancel();
+    setState(() {
+      contatore = false;
+      statoPausa = false;
+    });
+  }
+
+  void reset() {
+    tickerSubscription?.cancel();
+    setState(() {
+      secondi = 0;
+      contatore = false;
+      statoPausa = false;
+    });
+  }
+
+  void pause() {
+    tickerSubscription?.pause();
+    setState(() {
+      statoPausa = true;
+    });
+  }
+
+  void resume() {
+    tickerSubscription?.resume();
+    setState(() {
+      statoPausa = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
