@@ -78,6 +78,12 @@ class _ChronoPageState extends State<ChronoPage> {
       statoPausa = false;
     });
   }
+  
+   String cambioFormato(int secondi) {
+    final minuti = secondi ~/ 60;
+    final secondiRimanenti = secondi % 60;
+    return '${minuti.toString().padLeft(2, '0')}:${secondiRimanenti.toString().padLeft(2, '0')}';
+  }
 
   @override
   Widget build(BuildContext context) {
