@@ -26,7 +26,6 @@ class ChronoPage extends StatefulWidget {
 
 class _ChronoPageState extends State<ChronoPage> {
   StreamSubscription<int>? tickerSubscription;
-
   int secondi = 0;
   bool contatore = false;
   bool statoPausa = false;
@@ -78,22 +77,81 @@ class _ChronoPageState extends State<ChronoPage> {
       statoPausa = false;
     });
   }
-  
-   String cambioFormato(int secondi) {
+
+  String cambioFormato(int secondi) {
     final minuti = secondi ~/ 60;
     final secondiRimanenti = secondi % 60;
     return '${minuti.toString().padLeft(2, '0')}:${secondiRimanenti.toString().padLeft(2, '0')}';
   }
 
   @override
+  void cancellazione() {
+    tickerSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Chrono')),
+      appBar: AppBar(
+        title: const Text('Chrono'),
+        backgroundColor: Colors.orange,
+      ),
       body: Center(
         child: Text(
-          '$secondi',
+          cambioFormato(secondi),
           style: const TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
         ),
+      ),
+      floatingActionButton: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: FloatingActionButton(
+                heroTag: 'main',
+                backgroundColor: Colors.purple,
+                onPressed: () {
+                  if (!contatore && secondi == 0) {
+                    start();
+                  } else if (contatore) {
+                    stop();
+                  } else if (!contatore && secondi > 0) {
+                    reset();
+                  }
+                },
+                child: Icon(
+                  !contatore && secondi == 0
+                      ? Icons.play_arrow
+                      : contatore
+                          ? Icons.stop
+                          : Icons.refresh,
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(30),
+              child: FloatingActionButton(
+                heroTag: 'pause',
+                backgroundColor: Colors.green,
+                onPressed: () {
+                  if (contatore && !statoPausa) {
+                    pause();
+                  } else if (statoPausa) {
+                    resume();
+                  }
+                },
+                child: Icon(
+                  statoPausa ? Icons.play_arrow : Icons.pause,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
