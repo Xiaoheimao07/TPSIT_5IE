@@ -10,6 +10,7 @@ Si è sviluppato proggetto in cui ulutente inizialmente fa un login, poi succesi
 
 ## Scelte di sviluppo
 - **Graffica :** Seguito i traddizionali aspetti di una chatroom normale.
+- **Aggiornamento :** Aggiornamento dei messaggi in tempo reale usando setState().
 
 
 
