@@ -15,77 +15,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'am043 todo list',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.red)),
-      home: ChangeNotifierProvider<TodoListNotifier>(
-        create: (notifier) => TodoListNotifier(),
-        child: const MyHomePage(title: 'am043 todo list'),
+      title: 'Todo App',
+      home: ChangeNotifierProvider(
+        create: (_) => TodoListNotifier(),
+        child: const MyHomePage(),
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _textFieldController = TextEditingController();
-
-  Future<void> _displayDialog(TodoListNotifier notifier) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('add todo item'),
-          content: TextField(
-            controller: _textFieldController,
-            decoration: const InputDecoration(hintText: 'type here ...'),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Add'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                notifier.addTodo(_textFieldController.text);
-                _textFieldController.clear();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TodoListNotifier notifier = context.watch<TodoListNotifier>();
+    final notifier = context.watch<TodoListNotifier>();
 
     return Scaffold(
-      appBar: AppBar(
-        shadowColor: Theme.of(context).shadowColor,
-        elevation: 4,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          itemCount: notifier.length,
-          itemBuilder: (context, index) {
-            Todo todo = notifier.getTodo(index);
-            return TodoItem(todo: todo);
-          },
+      appBar: AppBar(title: const Text('My Todos')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Card(
+          child: Column(
+            children: [
+              for (int i = 0; i < notifier.length; i++)
+                TodoItem(todo: notifier.getTodo(i))
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _displayDialog(notifier),
-        tooltip: 'add todo',
+        onPressed: () => notifier.addTodo('Nuovo Todo'),
         child: const Icon(Icons.add),
       ),
     );
