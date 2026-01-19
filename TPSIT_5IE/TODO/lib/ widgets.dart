@@ -4,33 +4,69 @@ import 'package:provider/provider.dart';
 import 'model.dart';
 import 'notifier.dart';
 
-class TodoItem extends StatelessWidget {
-  TodoItem({required this.todo}) : super(key: ObjectKey(todo));
+class TodoItem extends StatefulWidget {
+  const TodoItem({required this.todo}) : super(key: ObjectKey(todo));
 
   final Todo todo;
 
-  TextStyle? _getTextStyle(bool checked) {
-    if (!checked) return null;
+  @override
+  State<TodoItem> createState() => _TodoItemState();
+}
 
-    return const TextStyle(
-      color: Colors.black45,
-      decoration: TextDecoration.lineThrough,
-    );
+class _TodoItemState extends State<TodoItem> {
+  late TextEditingController _controller;
+  bool _editing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.todo.name);
   }
 
   @override
   Widget build(BuildContext context) {
-    final TodoListNotifier notifier = context.watch<TodoListNotifier>();
+    final notifier = context.read<TodoListNotifier>();
 
-    return ListTile(
-      onTap: () {
-        notifier.changeTodo(todo);
-      },
-      onLongPress: (() {
-        notifier.deleteTodo(todo);
-      }),
-      leading: CircleAvatar(child: Text(todo.name[0])),
-      title: Text(todo.name, style: _getTextStyle(todo.checked)),
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            Checkbox(
+              value: widget.todo.checked,
+              onChanged: (_) =>
+                  notifier.toggleTodo(widget.todo),
+            ),
+            Expanded(
+              child: _editing
+                  ? TextField(
+                      controller: _controller,
+                      autofocus: true,
+                      onSubmitted: (value) {
+                        notifier.updateTodo(widget.todo, value);
+                        setState(() => _editing = false);
+                      },
+                    )
+                  : GestureDetector(
+                      onTap: () =>
+                          setState(() => _editing = true),
+                      onLongPress: () =>
+                          notifier.deleteTodo(widget.todo),
+                      child: Text(
+                        widget.todo.name,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: widget.todo.checked
+                              ? Colors.black45
+                              : Colors.black,
+                        ),
+                      ),
+                    ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
