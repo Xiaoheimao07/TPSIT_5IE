@@ -1,0 +1,86 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+
+class Chat extends StatefulWidget {
+  final String nome; 
+  const Chat({super.key, required this.nome});
+
+  @override
+  State<Chat> createState() => _ChatState();
+}
+
+class _ChatState extends State<Chat> {
+  late Socket socket;
+  final TextEditingController controller = TextEditingController();
+  final List<String> messaggio = []; 
+
+  @override
+  void initState() {
+    super.initState();
+    connectToServer();
+  }
+
+  void connectToServer() async {
+    try {
+      socket = await Socket.connect('10.0.2.2', 3000);
+      socket.write("${widget.nome} si è unito alla chat\n");
+
+      socket.listen((data) {
+        setState(() {
+          messaggio.add(String.fromCharCodes(data).trim());
+        });
+      });
+    } catch (e) {
+      setState(() {
+        messaggio.add("Errore di connessione: $e");
+      });
+    }
+  }
+
+  void sendMessage() {
+    if (controller.text.trim().isEmpty) return;
+
+    socket.write("${widget.nome}: ${controller.text}\n");
+    controller.clear();
+  }
+
+  @override
+  void dispose() {
+    socket.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Chat")),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: messaggio.length,
+              itemBuilder: (_, i) => ListTile(
+                title: Text(messaggio[i]),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  decoration: const InputDecoration(hintText: "..."),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: sendMessage,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
