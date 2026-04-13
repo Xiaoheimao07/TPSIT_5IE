@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'model.dart';
-import '../../lib/notifier.dart';
+import 'notifier.dart';
 
 // Todo Griglia
 class TodoCardWidget extends StatelessWidget {

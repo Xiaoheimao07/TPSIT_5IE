@@ -41,13 +41,13 @@ class TodoBoardPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("zKeep"),
+        title: const Text("Il mio ZKeep!!!"),
         centerTitle: true,
       ),
 
       body: cards.isEmpty
           ? const Center(
-              child: Text("Crea la tua prima nota!"),
+              child: Text("Scrivi qualcosa !"),
             )
           : Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
