@@ -1,0 +1,84 @@
+{
+  "chitarre": [
+    {
+      "id": "1",
+      "nome": "Fender Stratocaster",
+      "tipo": "elettrica",
+      "marca": "Fender",
+      "stelle": 5,
+      "corde": 6,
+      "custodia": true,
+      "amplificatore": true,
+      "accordatore": true,
+      "mancina": false,
+      "descrizione": "Icona del rock, suono brillante e versatile, perfetta per ogni genere musicale."
+    },
+    {
+      "id": "2",
+      "nome": "Gibson Les Paul",
+      "tipo": "elettrica",
+      "marca": "Gibson",
+      "stelle": 5,
+      "corde": 6,
+      "custodia": true,
+      "amplificatore": true,
+      "accordatore": false,
+      "mancina": false,
+      "descrizione": "Suono caldo e potente, ideale per rock e blues. Costruzione solida e premium."
+    },
+    {
+      "id": "3",
+      "nome": "Yamaha F310",
+      "tipo": "acustica",
+      "marca": "Yamaha",
+      "stelle": 3,
+      "corde": 6,
+      "custodia": false,
+      "amplificatore": false,
+      "accordatore": true,
+      "mancina": false,
+      "descrizione": "Ottima chitarra acustica per principianti, buon rapporto qualità prezzo."
+    },
+    {
+      "id": "4",
+      "nome": "Kremona Sofia",
+      "tipo": "classica",
+      "marca": "Kremona",
+      "stelle": 4,
+      "corde": 6,
+      "custodia": true,
+      "amplificatore": false,
+      "accordatore": true,
+      "mancina": false,
+      "descrizione": "Chitarra classica con corde in nylon, perfetta per musica classica e flamenco."
+    },
+    {
+      "id": "5",
+      "nome": "Fender Jazz Bass",
+      "tipo": "basso",
+      "marca": "Fender",
+      "stelle": 5,
+      "corde": 4,
+      "custodia": true,
+      "amplificatore": true,
+      "accordatore": true,
+      "mancina": false,
+      "descrizione": "Basso leggendario dal suono definito e versatile, usato in ogni genere musicale."
+    },
+    {
+      "id": "6",
+      "nome": "Ibanez RG7421",
+      "tipo": "elettrica",
+      "marca": "Ibanez",
+      "stelle": 4,
+      "corde": 7,
+      "custodia": false,
+      "amplificatore": true,
+      "accordatore": true,
+      "mancina": false,
+      "descrizione": "Chitarra a 7 corde perfetta per metal e djent, manico veloce e comodo."
+    }
+  ],
+  "preferiti": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}
