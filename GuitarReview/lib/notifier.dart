@@ -34,7 +34,7 @@ class ChitarreNotifier with ChangeNotifier {
     notifyListeners();
 
     final connectivity = await Connectivity().checkConnectivity();
-    final online = true;
+    final online = !connectivity.contains(ConnectivityResult.none);
 
     if (online) {
       try {
